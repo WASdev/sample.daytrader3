@@ -1,0 +1,15 @@
+// ------------------------------------------------------------------
+// Transitive dependencies of this project determined from the
+// maven pom organized by organization.
+// ------------------------------------------------------------------
+
+DayTrader :: EJBs
+
+
+From: 'Apache Software Foundation' (http://www.apache.org/)
+  - DayTrader :: WS Application Client (http://geronimo.apache.org/maven/genesis/EE6/config/project-config/daytrader/daytrader-wsappclient) com.ibm.websphere.samples.daytrader:daytrader-wsappclient:jar:EE6
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+
+
+

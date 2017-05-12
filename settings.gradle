@@ -1,0 +1,1 @@
+include 'daytrader3-ee6', 'daytrader3-ee6-wlpcfg','daytrader3-ee6-ejb','daytrader3-ee6-web','daytrader3-ee6-rest'

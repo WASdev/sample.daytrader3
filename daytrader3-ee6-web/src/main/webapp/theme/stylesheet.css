@@ -1,0 +1,170 @@
+/********************************
+ *	Faces Components Stylesheet *
+ ********************************/
+
+.form {
+}
+
+.commandLink {
+}
+
+.outputLink {
+}
+
+.link {
+}
+
+.graphicImage {
+}
+
+.outputLabel {
+}
+
+.inputText {
+}
+
+.inputText_Error {
+	border-style: solid;
+	border-color: #DE5C5C;
+}
+
+.inputTextarea {
+}
+
+.inputSecret {
+}
+
+.inputHidden {
+}
+
+.outputText {
+}
+
+.outputFormat {
+}
+
+.commandButton {
+}
+
+.button {
+}
+
+.message {
+}
+
+.messages {
+}
+
+.selectBooleanCheckbox {
+}
+
+.selectBooleanCheckbox_Error {
+}
+
+.selectOneRadio {
+}
+
+.selectOneRadio_Error {
+}
+
+.selectOneRadio_Disabled {
+	color: GrayText;
+}
+
+.selectManyCheckbox {
+}
+
+.selectManyCheckbox_Error {
+}
+
+.selectManyCheckbox_Disabled {
+	color: GrayText;
+}
+
+.selectOneListbox {
+}
+
+.selectOneListbox_Error {
+}
+
+.selectManyListbox {
+}
+
+.selectManyListbox_Error {
+}
+
+.selectOneMenu {
+}
+
+.selectOneMenu_Error {
+}
+
+.selectManyMenu {
+}
+
+.selectManyMenu_Error {
+}
+
+.panelGroup {
+}
+
+.panelGrid {
+}
+
+.dataTable {
+	empty-cells:show;
+}
+
+.headerClass {
+	background-color: ThreeDFace;
+	color: WindowText;
+	border-width: 1px;
+	border-style: solid;
+	border-color: ThreeDShadow;
+	margin:2px;
+	padding:0px;
+	padding-left:4pt;
+	padding-right:4pt;
+	padding-bottom:2px;
+	font-weight: 400;
+	overflow: -moz-scrollbars-none;
+}
+
+.footerClass {
+	background-color: ThreeDFace;
+	color: WindowText;
+	border-width: 0px;
+	border-style: none;
+	padding:0px;
+	padding-left:4pt;
+	padding-right:4pt;
+	font-weight: 400;
+	overflow: -moz-scrollbars-none;
+}
+
+.rowClass1 {
+	background-color: window;
+}
+
+.rowClass2 {
+	background-color: ThreeDFace;
+}
+
+.columnClass1 {
+	background-color: window;
+	margin:2px;
+	padding:0px;
+	padding-left:4pt;
+	padding-right:4pt;
+	padding-bottom:2px;
+	overflow: -moz-scrollbars-none;
+}
+
+.columnClass2 {
+	background-color: ThreeDFace;
+	margin:2px;
+	padding:0px;
+	padding-left:4pt;
+	padding-right:4pt;
+	padding-bottom:2px;	
+}

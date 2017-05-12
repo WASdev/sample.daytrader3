@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<!DOCTYPE jboss-web PUBLIC "-//JBoss//DTD Web Application 2.3//EN" "http://www.jboss.org/j2ee/dtd/jboss-web_4_0.dtd">
+
+<jboss-web>
+
+      <resource-ref>
+         <res-ref-name>jdbc/TradeDataSource</res-ref-name>
+        <jndi-name>java:/jdbc/TradeDataSource</jndi-name>
+      </resource-ref>
+      
+      <resource-ref>
+         <res-ref-name>jms/QueueConnectionFactory</res-ref-name>
+         <jndi-name>java:/jms/QueueConnectionFactory</jndi-name>
+      </resource-ref>
+
+      <resource-ref>
+         <res-ref-name>jms/TopicConnectionFactory</res-ref-name>
+         <jndi-name>java:/jms/TopicConnectionFactory</jndi-name>
+      </resource-ref>
+
+      <ejb-ref>
+         <ejb-ref-name>TradeSLSBBean</ejb-ref-name>
+         <jndi-name>java:app/dt-ejb/TradeSLSBBean!com.ibm.websphere.samples.daytrader.ejb3.TradeSLSBLocal</jndi-name>
+      </ejb-ref>
+      
+      <ejb-ref>
+         <ejb-ref-name>DirectSLSBean</ejb-ref-name>
+         <jndi-name>java:app/dt-ejb/DirectSLSBBean!com.ibm.websphere.samples.daytrader.ejb3.DirectSLSBLocal</jndi-name> 
+      </ejb-ref>
+
+        
+      <message-destination-ref>
+         <message-destination-ref-name>jms/TradeBrokerQueue</message-destination-ref-name>
+         <jndi-name>java:/jms/TradeBrokerQueue</jndi-name>
+      </message-destination-ref>
+
+      <message-destination-ref>
+         <message-destination-ref-name>jms/TradeStreamerTopic</message-destination-ref-name>
+         <jndi-name>java:/jms/TradeStreamerTopic</jndi-name>
+      </message-destination-ref>
+</jboss-web>

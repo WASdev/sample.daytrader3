@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-bnd xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://websphere.ibm.com/xml/ns/javaee"
+    xsi:schemaLocation="http://websphere.ibm.com/xml/ns/javaee http://websphere.ibm.com/xml/ns/javaee/ibm-web-bnd_1_0.xsd" version="1.0">
+  <virtual-host name="default_host"/>
+  <resource-ref name="jdbc/TradeDataSource" binding-name="jdbc/TradeDataSource">
+    <authentication-alias name="TradeDataSourceAuthData"/>
+  </resource-ref>
+  <resource-ref name="jms/QueueConnectionFactory" binding-name="jms/TradeBrokerQCF"/>
+  <resource-ref name="jms/TopicConnectionFactory" binding-name="jms/TradeStreamerTCF"/>
+  <message-destination-ref binding-name="jms/TradeBrokerQueue" name="jms/TradeBrokerQueue"/>
+  <message-destination-ref binding-name="jms/TradeStreamerTopic" name="jms/TradeStreamerTopic"/>
+</web-bnd>
+

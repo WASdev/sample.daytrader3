@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:h="http://java.sun.com/jsf/html">
+	
+<h:head>
+<title>PingFaceletSmall - Stock Lookup Service</title>
+<meta http-equiv="Content-Type"	content="application/xhtml+xml; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<f:view>
+
+		<h3>PingFaceletSmall - Stock Lookup Service</h3>
+
+		<h4>Displays the stock information from a random stock in the database.</h4>
+		
+		<h:form styleClass="form" id="form1">		 
+			 
+			<h:panelGrid id="stockInfoTable" columns="6" border="2" rules="all" title="Stock Information" width="70%">
+         		
+         		<f:facet name="header">
+    		        <h:outputText value="Stock Information"/>
+	        	 </f:facet>
+			
+	        	<h:outputText value="Symbol" />
+	        	<h:outputText value="Company" />
+	        	<h:outputText value="Volume" />
+	        	<h:outputText value="Current Price" />
+	        	<h:outputText value="Low Price" />
+	        	<h:outputText value="High Price" />
+	        	
+            	<h:outputText value="#{quoteBean.quoteDataBean.symbol}" />
+            	<h:outputText value="#{quoteBean.quoteDataBean.companyName}" />
+            	<h:outputText value="#{quoteBean.quoteDataBean.volume}" />
+            	<h:outputText value="#{quoteBean.quoteDataBean.price}" />
+            	<h:outputText value="#{quoteBean.quoteDataBean.low}" />
+            	<h:outputText value="#{quoteBean.quoteDataBean.high}" />
+            	        				      	
+     		</h:panelGrid>
+     	
+		</h:form>
+	</f:view>
+
+
+</h:body>
+</html>

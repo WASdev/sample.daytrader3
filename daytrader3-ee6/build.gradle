@@ -1,0 +1,128 @@
+apply plugin: 'ear'
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'maven-publish'
+
+// Use the Liberty Gradle plugin to run our functional tests
+apply plugin: 'liberty'
+
+
+
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = 'Sonatype Nexus Snapshots'
+            url = 'https://oss.sonatype.org/content/repositories/snapshots/'
+        }
+    }
+    dependencies {
+        classpath 'net.wasdev.wlp.gradle.plugins:liberty-gradle-plugin:1.0.1'
+    }
+}
+archivesBaseName = 'daytrader3-ee6'
+
+ear {
+
+   manifest {
+      attributes 'Implementation-Title': 'DayTrader 3'
+   }
+   archiveName="$baseName.$extension"
+}
+
+// Copy EAR into the local usr dir
+task publishEar(dependsOn: 'ear', type: Copy) {
+    from(ear)
+    into('../daytrader3-ee6-wlpcfg/servers/daytrader3_Sample/apps')
+}
+
+task copyDerbyLib(type: Copy) {
+    into "../daytrader3-ee6-wlpcfg/shared/resources/Daytrader3_SampleDerbyLibs"
+    from configurations.runtime
+}
+
+/* publishing {
+    publications {
+        mavenWar(MavenPublication) {
+            version '1.0-SNAPSHOT'
+            groupId 'net.wasdev.wlp.sample'
+            artifactId 'daytrader3-ee6'
+
+            from components.web
+        }
+    }
+} */
+
+// Add a functional test task that runs during the 'check' phase that uses the Liberty Gradle plugin
+// to launch Liberty and run the test classes in the fvt source set
+task fvt(type: Test, dependsOn: publishEar) {
+    group 'Verification'
+    description 'Runs the functional verification tests.'
+    reports.html.destination = file("$buildDir/reports/fvt")
+    reports.junitXml.destination = file("$buildDir/test-results/fvt")
+    include '**/fvt/**'
+    exclude '**/unit/**'
+    systemProperties = ['liberty.test.port': getHttpPort()]
+    dependsOn libertyStart
+    finalizedBy libertyStop
+}
+
+test {
+	reports.html.destination = file("$buildDir/reports/unit")
+	reports.junitXml.destination = file("$buildDir/test-results/unit")
+	include '**/unit/**'
+	exclude '**/fvt/**'
+}
+
+repositories { mavenCentral(); }
+dependencies {
+   deploy project (path: ':daytrader3-ee6-ejb', configuration: 'archives')
+   deploy project (path: ':daytrader3-ee6-web', configuration: 'archives')
+   deploy project (path: ':daytrader3-ee6-rest', configuration: 'archives')
+   compile group: 'org.apache.derby', name: 'derby', version: '10.10.1.1'
+}
+String getHttpPort() {
+    def DEFAULT_HTTP_PORT = 9083
+    def serverXmlFile = file(new File('../daytrader3-ee6-wlpcfg/servers/daytrader3_Sample/server.xml'))
+    def portPattern = ~/.*httpPort="(\d+)".*/
+    serverXmlFile.eachLine { line ->
+        def portMatcher = line =~ portPattern
+        if (portMatcher) {
+            return portMatcher.group(1)
+        }
+    }
+    return DEFAULT_HTTP_PORT
+}
+
+libertyStart.mustRunAfter publishEar
+
+liberty {
+    installDir = owner.hasProperty('libertyRoot') ? "${libertyRoot}" : null
+    serverName = 'daytrader3_Sample'
+    userDir = '../daytrader3-ee6-wlpcfg'
+    clean = true
+    install {
+       
+    }
+}
+
+liberty {
+	features {
+       name = ['daytrader3_Sample']
+      
+       acceptLicense = true
+    }
+} 
+
+installFeature.dependsOn(installLiberty)
+
+assemble.dependsOn('publishEar','copyDerbyLib')
+
+// If libertyRoot is not set, automatically download & install Liberty runtime
+if (!hasProperty('libertyRoot')) {
+    fvt.dependsOn('installFeature')
+}
+
+// Run FVT by default
+check.dependsOn fvt

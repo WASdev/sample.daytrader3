@@ -1,0 +1,80 @@
+<server>
+    <featureManager>
+        <feature>ejbLite-3.1</feature>
+        <feature>jsf-2.0</feature>
+        <feature>jaxrs-1.1</feature>
+        <feature>jpa-2.0</feature>
+        <feature>jmsMdb-3.1</feature>
+        <feature>wasJmsServer-1.0</feature>
+        <feature>wasJmsClient-1.1</feature>
+    </featureManager>
+
+       	<httpEndpoint host="*" httpPort="9083" httpsPort="9443" id="defaultHttpEndpoint"> 
+			<tcpOptions soReuseAddr="true"/> 
+			<httpOptions maxKeepAliveRequests="-1"/>
+		</httpEndpoint>
+		
+		<application id="daytrader3" location="daytrader3-ee6.ear" name="daytrader3"/>	
+
+        <connectionManager id="conMgr1" agedTimeout="-1" connectionTimeout="0" maxIdleTime="-1" maxPoolSize="70" minPoolSize="70" purgePolicy="FailingConnectionOnly" reapTime="-1"/>
+        <connectionManager id="conMgr2" agedTimeout="-1" connectionTimeout="0" maxIdleTime="-1" maxPoolSize="50" minPoolSize="10" purgePolicy="FailingConnectionOnly" reapTime="-1"/>
+        
+        <jdbcDriver id="DerbyEmbedded" libraryRef="DerbyLib"/>
+        <library id="DerbyLib" filesetRef="DerbyFileset"/>
+        <fileset id="DerbyFileset"
+             dir="${shared.resource.dir}/Daytrader3_SampleDerbyLibs"
+             includes="derby-10.10.1.1.jar" />
+
+        <authData id="TradeDataSourceAuthData" user="db_username" password="db_password"/>
+        <authData id="TradeAdminAuthData" user="db_username" password="db_password"/>
+
+        <dataSource jndiName="jdbc/TradeDataSource" jdbcDriverRef="DerbyEmbedded" id="TradeDataSource" connectionManagerRef="conMgr1" statementCacheSize="60" isolationLevel="TRANSACTION_READ_COMMITTED">
+                <properties.derby.embedded
+            databaseName="${shared.resource.dir}/data/tradedb"
+            createDatabase="create"
+            user="db_username"
+            password="db_password"
+      />
+        </dataSource>
+
+        <dataSource jndiName="jdbc/NoTxTradeDataSource" jdbcDriverRef="DerbyEmbedded" id="NoTxTradeDataSource" transactional="false" connectionManagerRef="conMgr2" statementCacheSize="10" isolationLevel="TRANSACTION_READ_COMMITTED">
+                <properties.derby.embedded
+            databaseName="${shared.resource.dir}/data/tradedb"
+            createDatabase="create"
+            user="db_username"
+            password="db_password"
+      />
+        </dataSource>
+
+        <messagingEngine id="defaultME">
+                <queue id="TradeBrokerQueue" />
+                <topicSpace id="TradeTopicSpace" />
+        </messagingEngine>
+
+        <jmsQueueConnectionFactory jndiName="jms/TradeBrokerQCF" connectionManagerRef="ConMgr3">
+                <properties.wasJms />
+        </jmsQueueConnectionFactory>
+        <connectionManager id="ConMgr3" maxPoolSize="20"/>
+
+        <jmsTopicConnectionFactory jndiName="jms/TradeStreamerTCF" connectionManagerRef="ConMgr4">
+                <properties.wasJms />
+        </jmsTopicConnectionFactory>
+        <connectionManager id="ConMgr4" maxPoolSize="20"/>
+
+        <jmsQueue id="jms/TradeBrokerQueue" jndiName="jms/TradeBrokerQueue">
+                <properties.wasJms queueName="TradeBrokerQueue" deliveryMode="NonPersistent" />
+        </jmsQueue>
+        
+        <jmsTopic id="jms/TradeStreamerTopic" jndiName="jms/TradeStreamerTopic">
+                <properties.wasJms topicSpace="TradeTopicSpace" deliveryMode="NonPersistent" />
+        </jmsTopic>
+
+        <jmsActivationSpec id="eis/TradeBrokerMDB" >
+                <properties.wasJms destinationRef="jms/TradeBrokerQueue" />
+        </jmsActivationSpec>
+
+        <jmsActivationSpec id="eis/TradeStreamerMDB" >
+                <properties.wasJms destinationRef="jms/TradeStreamerTopic" destinationType="javax.jms.Topic" />
+        </jmsActivationSpec>
+</server>
+        

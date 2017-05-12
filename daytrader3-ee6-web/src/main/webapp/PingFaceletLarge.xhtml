@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:h="http://java.sun.com/jsf/html">
+	
+<h:head>
+<title>PingFaceletLarge - User Account Info Lookup Service</title>
+<meta http-equiv="Content-Type"	content="application/xhtml+xml; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<f:view>
+	
+	<h3>PingFaceletLarge - User Account Info Lookup Service</h3>
+
+	<h4>Displays the user, account, and holding information from a random user in the database.</h4>
+		
+		<h:form styleClass="form" id="UserForm">		 
+			 
+			<h:panelGrid id="userInfoTable" columns="5" border="2" rules="all" title="User Information" width="70%">
+         		
+         		<f:facet name="header">
+    		        <h:outputText value="User Information"/>
+	        	 </f:facet>
+			
+	        	<h:outputText value="User ID" />
+	        	<h:outputText value="Full Name" />
+	        	<h:outputText value="Address" />
+	        	<h:outputText value="E-Mail" />
+	        	<h:outputText value="Credit Card" />
+	        	
+            	<h:outputText value="#{accountBean.accountProfileDataBean.userID}" />
+            	<h:outputText value="#{accountBean.accountProfileDataBean.fullName}" />
+            	<h:outputText value="#{accountBean.accountProfileDataBean.address}" />
+            	<h:outputText value="#{accountBean.accountProfileDataBean.email}" />
+            	<h:outputText value="#{accountBean.accountProfileDataBean.creditCard}" />
+            	        				      	
+     		</h:panelGrid>
+     	
+		</h:form>
+		
+		<br>
+		</br>
+		<br>
+		</br>
+		
+		<h:form styleClass="form" id="AccountForm">		 
+			 
+			<h:panelGrid id="accountInfoTable" columns="5" border="2" rules="all" title="Account Information" width="70%">
+         		
+         		<f:facet name="header">
+    		        <h:outputText value="Account Information"/>
+	        	 </f:facet>
+			
+	        	<h:outputText value="Account ID" />
+	        	<h:outputText value="Creation Date" />
+	        	<h:outputText value="Balance" />
+	        	<h:outputText value="Opening Balance" />
+	        	<h:outputText value="Last Login" />
+	        	
+            	<h:outputText value="#{accountBean.accountDataBean.accountID}" />
+            	<h:outputText value="#{accountBean.accountDataBean.creationDate}" />
+            	<h:outputText value="#{accountBean.accountDataBean.balance}" />
+            	<h:outputText value="#{accountBean.accountDataBean.openBalance}" />
+            	<h:outputText value="#{accountBean.accountDataBean.lastLogin}" />
+            	        				      	
+     		</h:panelGrid>
+     	
+		</h:form>
+		
+		<br>
+		</br>
+		<br>
+		</br>
+		
+		<h:form styleClass="form" id="HoldingsForm">		 
+			 
+			 	<h:dataTable id="HoldingsTable" binding="#{accountBean.dataTable}" 
+			    value="#{accountBean.holdings}" var="holding"
+				bgcolor="#F1F1F1" border="10" cellpadding="5" cellspacing="3"
+				first="0" rows="6" width="50%" dir="ltr" frame="hsides" rules="all"
+				summary="JSF code to create dataTable">
+
+				<f:facet name="header">
+					<h:outputText value="Holding Information" />
+				</f:facet>						
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Holding ID" />
+					</f:facet>
+					<h:outputText value="#{holding.holdingID}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Quantity (Shares)" />
+					</f:facet>
+					<h:outputText value="#{holding.quantity}" />
+				</h:column>				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Purchase Price" />
+					</f:facet>
+					<h:outputText value="#{holding.purchasePrice}" />
+				</h:column>			
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Purchase Date" />
+					</f:facet>
+					<h:outputText value="#{holding.purchaseDate}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Stock Symbol" />
+					</f:facet>
+					<h:outputText value="#{holding.quoteID}" />
+				</h:column>
+			</h:dataTable>
+		</h:form>
+		
+	
+	</f:view>
+</h:body>
+</html>

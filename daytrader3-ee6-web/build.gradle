@@ -1,0 +1,36 @@
+apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
+
+war {
+	archiveName 'web.war'
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = 'Sonatype Nexus Snapshots'
+            url = 'https://oss.sonatype.org/content/repositories/snapshots/'
+        }
+    }
+}
+
+// Dependencies
+repositories { mavenCentral(); }
+dependencies {
+	providedCompile project (path: ':daytrader3-ee6-ejb', configuration: 'archives')
+	providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
+	providedCompile group: 'javax.jms', name: 'jms-api', version: '1.1-rev-1'
+	providedCompile group: 'javax.ejb', name: 'ejb-api', version: '3.0'	
+	providedCompile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.0-api', version: '1.0.1.Final'
+	providedCompile group:'javax.faces', name:'javax.faces-api', version:'2.1'
+	compile group:'taglibs', name:'standard',version:'1.1.1'
+}
+
+
+
+// Set the Eclipse facets to use 3.1 of the Dynamic Web Module which requires Java 1.7 by default.
+eclipse.wtp.facet {
+    // Clear default facets to work around bug where you get duplicates including wst 2.4
+
+}
