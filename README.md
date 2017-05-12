@@ -1,3 +1,5 @@
+# sample.daytrader3 [![Build Status](https://travis-ci.org/WASdev/sample.daytrader3.svg?branch=master)](https://travis-ci.org/WASdev/sample.daytrader3)
+
 # Java EE6: DayTrader3 Sample
 
 Java EE6 DayTrader3 Sample
