@@ -20,20 +20,12 @@ This sample can be built using either [Gradle](#gradle-commands) or [Maven](#apa
 ```bash
 $ gradle build
 ```
-
-If you want to also run the functional tests then you need to [Download WAS Liberty](/docs/Downloading-WAS-Liberty.md) and set the libertyRoot property in the gradle.properties file to point to your Liberty install.
-
 ###### [Apache Maven](http://maven.apache.org/) commands
 
 ```bash
 $ mvn install
 ```
 
-If you want to also run the functional tests then you need to [Download WAS Liberty](/docs/Downloading-WAS-Liberty.md) and pass in the location of your install as the system property libertyRoot:
-
-```bash
-$ mvn -DlibertyRoot=<LibertyInstallLocation> install
-```
 
 The built ear file is copied into the apps directory of the server configuration located in the daytrader3-ee6-wlpcfg directory:
 
@@ -57,10 +49,10 @@ Use the following to start the server and run the application:
 
 ```bash
 $ export WLP_USER_DIR=/path/to/sample.daytrader3/daytrader3-ee6-wlpcfg
-$ /path/to/wlp/bin/server start daytrader3_Sample
 $ /path/to/wlp/bin/installUtility install daytrader3_Sample
+$ /path/to/wlp/bin/server start daytrader3_Sample
 
-1.  Confirm web browser opens on "http://localhost:9083/daytrader/" or "http://localhost:9083/daytrader/index.faces"
+1.  Confirm web browser opens on "http://localhost:9083/daytrader" 
 2.  In the web browser, Click on the configuration tab.
 3.  Click on '(Re)-create  DayTrader Database Tables and Indexes' to create the database.
 4.  Click on '(Re)-populate  DayTrader Database' to populate the database.
