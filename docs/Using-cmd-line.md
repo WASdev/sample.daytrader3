@@ -6,6 +6,7 @@
 ```bash
 
 $ git clone https://github.com/WASdev/sample.daytrader3.git
+$ cd sample.daytrader3
 
 ```
 
@@ -57,6 +58,7 @@ Use the following to start the server and run the application:
 ```bash
 $ export WLP_USER_DIR=/path/to/sample.daytrader3/daytrader3-ee6-wlpcfg
 $ /path/to/wlp/bin/server start daytrader3_Sample
+$ /path/to/wlp/bin/installUtility install daytrader3_Sample
 
 1.  Confirm web browser opens on "http://localhost:9083/daytrader/" or "http://localhost:9083/daytrader/index.faces"
 2.  In the web browser, Click on the configuration tab.
