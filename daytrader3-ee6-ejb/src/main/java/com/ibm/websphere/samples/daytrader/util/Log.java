@@ -31,7 +31,6 @@ public class Log {
 
 	public static void log(String message)
 	{
-        log.log(Level.INFO,"DayTrader Log:" + new java.util.Date() + "------\n\t ");
 		log.log(Level.INFO,message);
 	}
 	public static void log(String msg1, String msg2)
