@@ -44,7 +44,7 @@ import com.ibm.websphere.samples.daytrader.util.TimerStat;
 public class DTStreamer3MDB implements MessageListener {
     
     private MDBStats mdbStats;
-    private int statInterval = 1000;
+    private int statInterval = 10000;
     
     @Resource
     public MessageDrivenContext mdc;
@@ -52,7 +52,7 @@ public class DTStreamer3MDB implements MessageListener {
     /** Creates a new instance of TradeSteamerMDB */
     public DTStreamer3MDB() {
         if (Log.doTrace()) Log.trace("DTStreamer3MDB:DTStreamer3MDB()");
-        if ( statInterval <= 0 ) statInterval = 1000;
+        if ( statInterval <= 0 ) statInterval = 10000;
         mdbStats = MDBStats.getInstance();
     }
     
@@ -81,13 +81,12 @@ public class DTStreamer3MDB implements MessageListener {
                 TimerStat currentStats = mdbStats.addTiming("DTStreamer3MDB:udpateQuote", publishTime, receiveTime );
                 
                 if ( (currentStats.getCount() % statInterval) == 0) {
-                    Log.log(new java.util.Date()+ "\nDTStreamer3MDB: " + statInterval + " Trade stock prices updated:  " +
-                            "\nCurrent Statistics\n\tTotal update Quote Price message count = " + currentStats.getCount() +
-                            "\n\tTime to receive stock update alerts messages (in seconds):" +
-                            "\n\t\tmin: " +currentStats.getMinSecs()+
-                            "\n\t\tmax: " +currentStats.getMaxSecs()+
-                            "\n\t\tavg: " +currentStats.getAvgSecs()+
-                            "\n\n\n\tThe current price update is:\n\t"+((TextMessage)message).getText()) ;
+                    Log.log(" DTStreamer3MDB: " + statInterval + " prices updated:" +
+                            " Total message count = " + currentStats.getCount() +
+                            " Time (in seconds):" +
+                            " min: " +currentStats.getMinSecs()+
+                            " max: " +currentStats.getMaxSecs()+
+                            " avg: " +currentStats.getAvgSecs() );
                 }
             } else if (command.equalsIgnoreCase("ping")) {
                 if (Log.doTrace())
@@ -99,13 +98,12 @@ public class DTStreamer3MDB implements MessageListener {
                 TimerStat currentStats = mdbStats.addTiming("DTStreamer3MDB:ping", publishTime, receiveTime );
                 
                 if ( (currentStats.getCount() % statInterval) == 0) {
-                    Log.log(new java.util.Date()+ "\nDTStreamer3MDB: received " + statInterval + " ping messages. " +
-                            "\nCurrent Ping Message Statistics\n\tTotal ping message count = " + currentStats.getCount() +
-                            "\n\tTime to receive messages (in seconds):" +
-                            "\n\t\tmin: " +currentStats.getMinSecs()+
-                            "\n\t\tmax: " +currentStats.getMaxSecs()+
-                            "\n\t\tavg: " +currentStats.getAvgSecs()+
-                            "\n\n\n\tThe current message is:\n\t"+((TextMessage)message).getText());
+                    Log.log(" DTStreamer3MDB: received " + statInterval + " ping messages." +
+                            " Total message count = " + currentStats.getCount() +
+                            " Time (in seconds):" +
+                            " min: " +currentStats.getMinSecs()+
+                            " max: " +currentStats.getMaxSecs()+
+                            " avg: " +currentStats.getAvgSecs());
                 }
             } else
                 Log.error("DTStreamer3MDB:onMessage - unknown message request command-->" + command + "<-- message=" + ((TextMessage)message).getText());
