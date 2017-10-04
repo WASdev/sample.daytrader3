@@ -13,18 +13,13 @@
  # limitations under the License.
  
 
-daytrader7.jmx is an Apache JMeter script that may be used for running the DayTrader7 benchmark.
-daytrader7_mojarra.jmx is the same as daytrader7.jmx, but for use with Mojarra JSF implementations.
+daytrader3.jmx is an Apache JMeter script that may be used for running the DayTrader3 benchmark.
 
-jmeter.properties changes some JMeter settings and can be copied to APACHE_JMETER_HOME/bin
-
-To use the script, you will need to put the the WebSocket Sampler (and dependencies) from the JMeter WebSocket Sampler by Maciej Zaleski into lib/ext.
-https://github.com/maciejzaleski/JMeter-WebSocketSampler
-
+Jmeter version 3.3 or later is highly recommended.
 
 The script has the following options:
-	-JHOST	    The name of the machine running the DayTrader Application.
-	-JPORT	    The HTTP port of the server running the DayTrader Application. The default is 9080.
+	-JHOST	    The name of the machine running the DayTrader Application. The default is localhost.
+	-JPORT	    The HTTP port of the server running the DayTrader Application. The default is 9083.
 	-JTHREADS   The number of jmeter threads to start. The default is 50.
 	-JDURATION  The time (in seconds) to run jmeter.
 	-JSTOCKS    The total amount of stocks/quotes in the database, minus one. The default is 9999, which assumes there are 10,000 stocks in the database.
