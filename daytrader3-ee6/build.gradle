@@ -6,9 +6,6 @@ apply plugin: 'maven-publish'
 // Use the Liberty Gradle plugin to run our functional tests
 apply plugin: 'liberty'
 
-
-
-
 buildscript {
     repositories {
         mavenCentral()
@@ -18,7 +15,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.wasdev.wlp.gradle.plugins:liberty-gradle-plugin:1.0.1'
+        classpath 'net.wasdev.wlp.gradle.plugins:liberty-gradle-plugin:2.0'
     }
 }
 archivesBaseName = 'daytrader3-ee6'
@@ -95,29 +92,24 @@ String getHttpPort() {
     return DEFAULT_HTTP_PORT
 }
 
-libertyStart.mustRunAfter publishEar
+libertyStart.mustRunAfter 'publishEar'
 
 liberty {
     installDir = owner.hasProperty('libertyRoot') ? "${libertyRoot}" : null
-    serverName = 'daytrader3_Sample'
-    userDir = '../daytrader3-ee6-wlpcfg'
-    clean = true
-    install {
-       
+    server{
+        name = 'daytrader3_Sample'
+        userDir = '../daytrader3-ee6-wlpcfg'
+        looseApplication = false
+        features {
+           name = ['daytrader3_Sample']
+           acceptLicense = true
+        }
     }
 }
 
-liberty {
-	features {
-       name = ['daytrader3_Sample']
-      
-       acceptLicense = true
-    }
-} 
+installFeature.dependsOn 'installLiberty'
 
-installFeature.dependsOn(installLiberty)
-
-assemble.dependsOn('publishEar','copyDerbyLib')
+assemble.dependsOn 'publishEar','copyDerbyLib'
 
 // If libertyRoot is not set, automatically download & install Liberty runtime
 if (!hasProperty('libertyRoot')) {
@@ -125,4 +117,4 @@ if (!hasProperty('libertyRoot')) {
 }
 
 // Run FVT by default
-check.dependsOn fvt
+check.dependsOn 'fvt'
