@@ -1,0 +1,5 @@
+include  '../:daytrader-ee7-web'
+include '../:daytrader-ee7-ejb'
+
+project(':daytrader-ee7-web').projectDir = "$rootDir/daytrader3-ee7-web" as File
+project(':daytrader-ee7-ejb').projectDir = "$rootDir/daytrader-ee7-ejb" as File
