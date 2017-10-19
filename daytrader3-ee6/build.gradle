@@ -63,6 +63,7 @@ task fvt(type: Test, dependsOn: publishEar) {
     systemProperties = ['liberty.test.port': getHttpPort()]
     dependsOn libertyStart
     finalizedBy libertyStop
+    // If libertyRoot is not set, automatically download & install Liberty runtime
 }
 
 test {
@@ -107,14 +108,12 @@ liberty {
     }
 }
 
-installFeature.dependsOn 'installLiberty'
-
-assemble.dependsOn 'publishEar','copyDerbyLib'
-
-// If libertyRoot is not set, automatically download & install Liberty runtime
 if (!hasProperty('libertyRoot')) {
     fvt.dependsOn('installFeature')
 }
 
+assemble.dependsOn 'publishEar','copyDerbyLib'
+
 // Run FVT by default
 check.dependsOn 'fvt'
+libertyCreate.enabled = false
