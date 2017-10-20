@@ -4,5 +4,5 @@ jdk:
   - openjdk7
   - oraclejdk8
 script:
-  - travis_wait mvn verify -Ponline-its -Dinvoker.streamLogs=true -DwlpVersion=8.5.5_07 -DwlpLicense=L-MCAO-9SYMVC
+  - travis_wait mvn install
   - gradle clean build
