@@ -91,7 +91,6 @@ liberty {
         name = 'daytrader3_Sample'
         userDir = rootProject.getProjectDir().getAbsolutePath()+'/daytrader3-ee6-wlpcfg'
         looseApplication = false
-        configFile = file(new File('../daytrader3-ee6-wlpcfg/servers/daytrader3_Sample/server.xml'))
         apps = [file(ear.archivePath)]
         features {
            name = ['daytrader3_Sample']
