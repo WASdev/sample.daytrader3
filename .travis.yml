@@ -4,7 +4,7 @@ jdk:
     - openjdk8
 
 env:
-    - TEST_COMMAND="./gradlew clean build"
+    - TEST_COMMAND="gradle clean build"
     - TEST_COMMAND="mvn clean install"
 
 script:
