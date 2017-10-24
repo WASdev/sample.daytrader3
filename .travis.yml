@@ -1,8 +1,11 @@
-sudo: false
 language: java
+
 jdk:
-  - openjdk7
-  - oraclejdk8
+    - openjdk8
+
+env:
+    - TEST_COMMAND="./gradlew clean build"
+    - TEST_COMMAND="mvn clean install"
+
 script:
-  - travis_wait mvn install
-  - gradle clean build
+- (eval "$TEST_COMMAND")
