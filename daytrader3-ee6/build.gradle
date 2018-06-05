@@ -11,7 +11,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'net.wasdev.wlp.gradle.plugins:liberty-gradle-plugin:2.3'
+        classpath 'net.wasdev.wlp.gradle.plugins:liberty-gradle-plugin:2.4'
     }
 }
 archivesBaseName = 'daytrader3-ee6'
