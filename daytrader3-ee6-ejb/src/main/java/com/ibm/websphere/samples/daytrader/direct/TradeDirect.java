@@ -1880,7 +1880,7 @@ public class TradeDirect implements TradeServices
 
 			stmt = getStatement(
 					conn,
-					"update accountejb set logoutCount=0,loginCount=0 where profile_userID like 'uid:%'");
+					"update accountejb set logoutCount=0, loginCount=0 where profile_userID like 'uid:%'");
 			rowCount = stmt.executeUpdate();
 			stmt.close();
 
